@@ -13,8 +13,8 @@ workflows:
         APP_STORE_CONNECT_KEY: snag_builder
         APP_STORE_APPLE_ID: 6783933211
         BUNDLE_ID: "com.snagestlist.Snaglist"
-        XCODE_PROJECT: "SnagBuilder.xcodeproj"
-        XCODE_SCHEME: "SnagBuilder"
+        XCODE_PROJECT: "Snaglistr.xcodeproj"
+        XCODE_SCHEME: "Snaglist"
     scripts:
       - name: Clean and Resolve SPM Dependencies
         script: |
