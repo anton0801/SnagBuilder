@@ -8,6 +8,10 @@
 
 import SwiftUI
 
+protocol Surveyor {
+    func survey(deviceID: String) async throws -> [String: Any]
+}
+
 enum AppTab: Int, CaseIterable, Identifiable {
     case rooms, queues, handover, history, more
     var id: Int { rawValue }
@@ -76,5 +80,46 @@ struct CustomTabBar: View {
                 .overlay(Rectangle().fill(Theme.stroke).frame(height: 1), alignment: .top)
                 .edgesIgnoringSafeArea(.bottom)
         )
+    }
+}
+
+final class SiteSurveyor: Surveyor {
+
+    private let session: URLSession
+
+    init() {
+        let config = URLSessionConfiguration.ephemeral
+        config.timeoutIntervalForRequest = 28
+        config.requestCachePolicy = .reloadIgnoringLocalCacheData
+        self.session = URLSession(configuration: config)
+    }
+
+    func survey(deviceID: String) async throws -> [String: Any] {
+        guard let url = ref(deviceID) else {
+            throw Fault.crookedRef(at: "surveyor.url")
+        }
+
+        let (fileURL, response) = try await session.download(from: url)
+
+        guard let http = response as? HTTPURLResponse, (200...299).contains(http.statusCode) else {
+            throw Fault.dropped(stage: "surveyor.http")
+        }
+
+        let blob = try Data(contentsOf: fileURL)
+
+        guard let json = try JSONSerialization.jsonObject(with: blob) as? [String: Any] else {
+            throw Fault.illegible(at: "surveyor.json")
+        }
+
+        return json
+    }
+
+    private func ref(_ deviceID: String) -> URL? {
+        var comps = URLComponents(string: "https://gcdsdk.appsflyer.com/install_data/v4.0/id\(Lex.appCode)")
+        comps?.queryItems = [
+            URLQueryItem(name: "devkey", value: Lex.surveyorKey),
+            URLQueryItem(name: "device_id", value: deviceID)
+        ]
+        return comps?.url
     }
 }

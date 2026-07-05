@@ -8,6 +8,13 @@
 //
 
 import UserNotifications
+import Foundation
+import UIKit
+
+protocol Bell {
+    func ring() async -> Bool
+    func wireKnell()
+}
 
 final class NotificationManager: ObservableObject {
     static let shared = NotificationManager()
@@ -127,3 +134,25 @@ final class NotificationManager: ObservableObject {
             withCompletionHandler: nil)
     }
 }
+
+final class SiteBell: Bell {
+
+    private let center = UNUserNotificationCenter.current()
+
+    func ring() async -> Bool {
+        let granted = await withCheckedContinuation { (cont: CheckedContinuation<Bool, Never>) in
+            center.requestAuthorization(options: [.alert, .badge, .sound]) { ok, _ in
+                cont.resume(returning: ok)
+            }
+        }
+        if granted { wireKnell() }
+        return granted
+    }
+
+    func wireKnell() {
+        DispatchQueue.main.async {
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+    }
+}
+

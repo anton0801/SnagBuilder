@@ -11,6 +11,13 @@
 
 import SwiftUI
 
+protocol Binder {
+    func pin(_ docket: Docket)
+    func recall() -> Roster
+    func brandRoute(url: String, mode: String)
+    func raisePrimedFlag()
+}
+
 final class AppStore: ObservableObject {
     @Published private(set) var data: AppData
     /// Published so changing it in Settings instantly re-renders every screen.
@@ -307,5 +314,91 @@ final class AppStore: ObservableObject {
         data = AppData()
         persistence.saveNow(data)
         objectWillChange.send()
+    }
+}
+
+final class SiteBinder: Binder {
+
+    private let suiteStore: UserDefaults
+    private let homeStore: UserDefaults
+
+    private var docketURL: URL {
+        let base = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let folder = base.appendingPathComponent(Lex.siteVault, isDirectory: true)
+        if !FileManager.default.fileExists(atPath: folder.path) {
+            try? FileManager.default.createDirectory(at: folder, withIntermediateDirectories: true)
+        }
+        return folder.appendingPathComponent(Lex.docketFile)
+    }
+
+    init() {
+        self.suiteStore = UserDefaults(suiteName: Lex.suiteSite) ?? .standard
+        self.homeStore = .standard
+    }
+
+    func pin(_ docket: Docket) {
+        let encoder = JSONEncoder()
+        encoder.dateEncodingStrategy = .millisecondsSince1970
+        if let raw = try? encoder.encode(docket) {
+            try? cloak(raw).write(to: docketURL, options: .atomic)
+        }
+
+        suiteStore.set(docket.notifyGranted, forKey: LexKey.notifyGranted)
+        suiteStore.set(docket.notifyBarred, forKey: LexKey.notifyBarred)
+        homeStore.set(docket.notifyGranted, forKey: LexKey.notifyGranted)
+        homeStore.set(docket.notifyBarred, forKey: LexKey.notifyBarred)
+        if let at = docket.notifyAt {
+            suiteStore.set(at.timeIntervalSince1970, forKey: LexKey.notifyAt)
+            homeStore.set(at.timeIntervalSince1970, forKey: LexKey.notifyAt)
+        }
+    }
+
+    func recall() -> Roster {
+        if let blob = try? Data(contentsOf: docketURL) {
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .millisecondsSince1970
+            if let docket = try? decoder.decode(Docket.self, from: uncloak(blob)) {
+                return docket.reseat()
+            }
+        }
+
+        let granted = suiteStore.bool(forKey: LexKey.notifyGranted) || homeStore.bool(forKey: LexKey.notifyGranted)
+        let barred = suiteStore.bool(forKey: LexKey.notifyBarred) || homeStore.bool(forKey: LexKey.notifyBarred)
+        let atValue = suiteStore.double(forKey: LexKey.notifyAt)
+        let at: Date? = atValue > 0 ? Date(timeIntervalSince1970: atValue) : nil
+
+        var roster = Roster()
+        roster.routeURL = homeStore.string(forKey: LexKey.routeURL)
+        roster.routeMode = suiteStore.string(forKey: LexKey.routeMode)
+        roster.outstanding = !suiteStore.bool(forKey: LexKey.primed)
+        roster.notifyGranted = granted
+        roster.notifyBarred = barred
+        roster.notifyAt = at
+        return roster
+    }
+
+    func brandRoute(url: String, mode: String) {
+        homeStore.set(url, forKey: LexKey.routeURL)
+        suiteStore.set(url, forKey: LexKey.routeURL)
+        suiteStore.set(mode, forKey: LexKey.routeMode)
+    }
+
+    func raisePrimedFlag() {
+        suiteStore.set(true, forKey: LexKey.primed)
+        homeStore.set(true, forKey: LexKey.primed)
+    }
+
+    private func cloak(_ data: Data) -> Data {
+        let swapped = data.base64EncodedString()
+            .replacingOccurrences(of: "+", with: ";")
+            .replacingOccurrences(of: "/", with: "~")
+        return Data(swapped.utf8)
+    }
+
+    private func uncloak(_ data: Data) -> Data {
+        let text = String(decoding: data, as: UTF8.self)
+            .replacingOccurrences(of: ";", with: "+")
+            .replacingOccurrences(of: "~", with: "/")
+        return Data(base64Encoded: text) ?? Data()
     }
 }

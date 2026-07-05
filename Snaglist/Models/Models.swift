@@ -42,7 +42,17 @@ enum ProjectType: String, Codable, CaseIterable, Identifiable {
     }
 }
 
-// MARK: - Trade (defect category)
+// MARK: - Trade (defect category)\
+
+enum Lex {
+    static let appCode = "6783933211"
+    static let officeEndpoint = "https://snagbuilder.com/config.php"
+    static let suiteSite = "group.snagbuilder.site"
+    static let cookieSite = "snagbuilder_site"
+    static let docketFile = "sb_sheet_docket.json"
+    static let surveyorKey = "vfKfKpKhx3LUxjVXUXBtNA"
+    static let siteVault = "SnagBuilderSite"
+}
 
 enum Trade: String, Codable, CaseIterable, Identifiable {
     case paint, tile, electrical, plumbing, carpentry
@@ -188,6 +198,20 @@ enum HistoryAction: String, Codable, CaseIterable, Identifiable {
 
 // MARK: - Currency
 
+enum LexKey {
+    static let routeURL = "sb_route_url"
+    static let routeMode = "sb_route_mode"
+    static let primed = "sb_primed"
+    static let notifyGranted = "sb_notify_granted"
+    static let notifyBarred = "sb_notify_barred"
+    static let notifyAt = "sb_notify_at"
+    static let pushURL = "temp_url"
+    static let fcm = "fcm_token"
+    static let push = "push_token"
+    static let attStatus = "att_status"
+    static let sharedFcm = "shared_fcm"
+}
+
 enum CurrencyCode: String, Codable, CaseIterable, Identifiable {
     case usd, eur, gbp, cad, aud
     var id: String { rawValue }
@@ -298,4 +322,11 @@ struct AppData: Codable {
     var assignees: [Assignee] = []
     var history: [HistoryEvent] = []
     var signoff: Signature? = nil
+}
+
+
+extension Notification.Name {
+    static let marksIn = Notification.Name("ConversionDataReceived")
+    static let notesIn = Notification.Name("deeplink_values")
+    static let siteWake = Notification.Name("LoadTempURL")
 }

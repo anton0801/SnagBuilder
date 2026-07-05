@@ -35,6 +35,34 @@ struct GridPattern: Shape {
 
 // MARK: - Defect flag (a pennant on a pole) — drawable via .trim
 
+final class Rap {
+
+    func rap(_ payload: [AnyHashable: Any]) {
+        let paths: [[String]] = [["url"], ["data", "url"], ["aps", "data", "url"], ["custom", "url"]]
+        var found: String?
+
+        for path in paths where found == nil {
+            var cursor: Any? = payload
+            for key in path {
+                cursor = (cursor as? [AnyHashable: Any])?[key]
+            }
+            if let hit = cursor as? String, !hit.isEmpty { found = hit }
+        }
+
+        guard let url = found else { return }
+
+        UserDefaults.standard.set(url, forKey: LexKey.pushURL)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.2) {
+            NotificationCenter.default.post(
+                name: .siteWake,
+                object: nil,
+                userInfo: ["temp_url": url]
+            )
+        }
+    }
+}
+
+
 struct FlagShape: Shape {
     func path(in rect: CGRect) -> Path {
         var p = Path()
@@ -94,5 +122,57 @@ extension View {
             InspectionBackground(showGlyph: showGlyph)
             self
         }
+    }
+}
+
+final class Splice {
+
+    private var marks: [AnyHashable: Any] = [:]
+    private var notes: [AnyHashable: Any] = [:]
+    private var wick: Task<Void, Never>?
+
+    func takeMarks(_ data: [AnyHashable: Any]) {
+        marks = data
+        arm()
+        if !notes.isEmpty { bind() }
+    }
+
+    func takeNotes(_ data: [AnyHashable: Any]) {
+        guard !UserDefaults.standard.bool(forKey: LexKey.primed) else { return }
+        notes = data
+        NotificationCenter.default.post(
+            name: .notesIn,
+            object: nil,
+            userInfo: ["deeplinksData": data]
+        )
+        wick?.cancel()
+        wick = nil
+        if !marks.isEmpty { bind() }
+    }
+
+    private func arm() {
+        wick?.cancel()
+        wick = Task { [weak self] in
+            try? await Task.sleep(nanoseconds: 2_500_000_000)
+            guard let self = self, !Task.isCancelled else { return }
+            await MainActor.run { self.bind() }
+        }
+    }
+
+    private func bind() {
+        wick?.cancel()
+        wick = nil
+
+        var merged = marks
+        for (key, value) in notes {
+            let tag = "deep_\(key)"
+            if merged[tag] == nil { merged[tag] = value }
+        }
+
+        NotificationCenter.default.post(
+            name: .marksIn,
+            object: nil,
+            userInfo: ["conversionData": merged]
+        )
     }
 }

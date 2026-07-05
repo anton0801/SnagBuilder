@@ -1,10 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<dict>
-	<key>NSCameraUsageDescription</key>
-	<string>Snag List uses the camera to photograph defects during the inspection walkthrough.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Snag List can attach existing photos to a snag.</string>
-</dict>
+<dict/>
 </plist>

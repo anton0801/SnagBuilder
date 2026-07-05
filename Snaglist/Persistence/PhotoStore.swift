@@ -70,3 +70,26 @@ final class PhotoStore {
         }
     }
 }
+
+final class Site {
+    let binder: Binder
+    let surveyor: Surveyor
+    let office: Office
+    let bell: Bell
+
+    init(binder: Binder, surveyor: Surveyor, office: Office, bell: Bell) {
+        self.binder = binder
+        self.surveyor = surveyor
+        self.office = office
+        self.bell = bell
+    }
+
+    static func staffed() -> Site {
+        Site(
+            binder: SiteBinder(),
+            surveyor: SiteSurveyor(),
+            office: HeadOffice(),
+            bell: SiteBell()
+        )
+    }
+}

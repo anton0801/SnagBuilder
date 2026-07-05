@@ -8,14 +8,51 @@
 
 /* Begin PBXBuildFile section */
 		3AC861ED2FEC518B00EDDA10 /* codemagic.yaml in Resources */ = {isa = PBXBuildFile; fileRef = 3AC861EC2FEC518B00EDDA10 /* codemagic.yaml */; };
+		8F4E08D42FFA698A00703C4A /* AppsFlyerLib in Frameworks */ = {isa = PBXBuildFile; productRef = 8F4E08D32FFA698A00703C4A /* AppsFlyerLib */; };
+		8F4E08D72FFA69B400703C4A /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 8F4E08D62FFA69B400703C4A /* FirebaseCore */; };
+		8F4E08D92FFA69B400703C4A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8F4E08D82FFA69B400703C4A /* FirebaseMessaging */; };
+		8F4E09372FFA8A6700703C4A /* SnagAppServiceExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8F4E09302FFA8A6700703C4A /* SnagAppServiceExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		8F4E093F2FFA8A7400703C4A /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 8F4E093E2FFA8A7400703C4A /* FirebaseMessaging */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8F4E09352FFA8A6700703C4A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = EE38D91D2FD9CABC00AA8EFB /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8F4E092F2FFA8A6700703C4A;
+			remoteInfo = SnagAppServiceExt;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8F4E093C2FFA8A6700703C4A /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				8F4E09372FFA8A6700703C4A /* SnagAppServiceExt.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3AC861EC2FEC518B00EDDA10 /* codemagic.yaml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = codemagic.yaml; sourceTree = "<group>"; };
+		8F4E09302FFA8A6700703C4A /* SnagAppServiceExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SnagAppServiceExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE38D9252FD9CABC00AA8EFB /* Snaglist.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snaglist.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8F4E093B2FFA8A6700703C4A /* Exceptions for "SnagAppServiceExt" folder in "SnagAppServiceExt" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8F4E092F2FFA8A6700703C4A /* SnagAppServiceExt */;
+		};
 		EE38D9382FD9CAEF00AA8EFB /* Exceptions for "Snaglist" folder in "Snaglist" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -26,6 +63,14 @@
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		8F4E09312FFA8A6700703C4A /* SnagAppServiceExt */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8F4E093B2FFA8A6700703C4A /* Exceptions for "SnagAppServiceExt" folder in "SnagAppServiceExt" target */,
+			);
+			path = SnagAppServiceExt;
+			sourceTree = "<group>";
+		};
 		EE38D9272FD9CABC00AA8EFB /* Snaglist */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
@@ -37,21 +82,41 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8F4E092D2FFA8A6700703C4A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8F4E093F2FFA8A7400703C4A /* FirebaseMessaging in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE38D9222FD9CABC00AA8EFB /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F4E08D92FFA69B400703C4A /* FirebaseMessaging in Frameworks */,
+				8F4E08D72FFA69B400703C4A /* FirebaseCore in Frameworks */,
+				8F4E08D42FFA698A00703C4A /* AppsFlyerLib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F4E093D2FFA8A7400703C4A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		EE38D91C2FD9CABC00AA8EFB = {
 			isa = PBXGroup;
 			children = (
 				3AC861EC2FEC518B00EDDA10 /* codemagic.yaml */,
 				EE38D9272FD9CABC00AA8EFB /* Snaglist */,
+				8F4E09312FFA8A6700703C4A /* SnagAppServiceExt */,
+				8F4E093D2FFA8A7400703C4A /* Frameworks */,
 				EE38D9262FD9CABC00AA8EFB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -60,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				EE38D9252FD9CABC00AA8EFB /* Snaglist.app */,
+				8F4E09302FFA8A6700703C4A /* SnagAppServiceExt.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -67,6 +133,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8F4E092F2FFA8A6700703C4A /* SnagAppServiceExt */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8F4E09382FFA8A6700703C4A /* Build configuration list for PBXNativeTarget "SnagAppServiceExt" */;
+			buildPhases = (
+				8F4E092C2FFA8A6700703C4A /* Sources */,
+				8F4E092D2FFA8A6700703C4A /* Frameworks */,
+				8F4E092E2FFA8A6700703C4A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				8F4E09312FFA8A6700703C4A /* SnagAppServiceExt */,
+			);
+			name = SnagAppServiceExt;
+			packageProductDependencies = (
+				8F4E093E2FFA8A7400703C4A /* FirebaseMessaging */,
+			);
+			productName = SnagAppServiceExt;
+			productReference = 8F4E09302FFA8A6700703C4A /* SnagAppServiceExt.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		EE38D9242FD9CABC00AA8EFB /* Snaglist */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = EE38D9332FD9CABF00AA8EFB /* Build configuration list for PBXNativeTarget "Snaglist" */;
@@ -74,16 +163,21 @@
 				EE38D9212FD9CABC00AA8EFB /* Sources */,
 				EE38D9222FD9CABC00AA8EFB /* Frameworks */,
 				EE38D9232FD9CABC00AA8EFB /* Resources */,
+				8F4E093C2FFA8A6700703C4A /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				8F4E09362FFA8A6700703C4A /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				EE38D9272FD9CABC00AA8EFB /* Snaglist */,
 			);
 			name = Snaglist;
 			packageProductDependencies = (
+				8F4E08D32FFA698A00703C4A /* AppsFlyerLib */,
+				8F4E08D62FFA69B400703C4A /* FirebaseCore */,
+				8F4E08D82FFA69B400703C4A /* FirebaseMessaging */,
 			);
 			productName = Snaglist;
 			productReference = EE38D9252FD9CABC00AA8EFB /* Snaglist.app */;
@@ -96,9 +190,12 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1610;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1610;
 				TargetAttributes = {
+					8F4E092F2FFA8A6700703C4A = {
+						CreatedOnToolsVersion = 16.4;
+					};
 					EE38D9242FD9CABC00AA8EFB = {
 						CreatedOnToolsVersion = 16.1;
 					};
@@ -113,17 +210,29 @@
 			);
 			mainGroup = EE38D91C2FD9CABC00AA8EFB;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8F4E08D22FFA698A00703C4A /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */,
+				8F4E08D52FFA69B400703C4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = EE38D9262FD9CABC00AA8EFB /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				EE38D9242FD9CABC00AA8EFB /* Snaglist */,
+				8F4E092F2FFA8A6700703C4A /* SnagAppServiceExt */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8F4E092E2FFA8A6700703C4A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE38D9232FD9CABC00AA8EFB /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -135,6 +244,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8F4E092C2FFA8A6700703C4A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		EE38D9212FD9CABC00AA8EFB /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -144,7 +260,73 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8F4E09362FFA8A6700703C4A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8F4E092F2FFA8A6700703C4A /* SnagAppServiceExt */;
+			targetProxy = 8F4E09352FFA8A6700703C4A /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		8F4E09392FFA8A6700703C4A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SnagAppServiceExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SnagAppServiceExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snagestlist.Snaglist.SnagAppServiceExt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8F4E093A2FFA8A6700703C4A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = SnagAppServiceExt/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SnagAppServiceExt;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.snagestlist.Snaglist.SnagAppServiceExt;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		EE38D9312FD9CABF00AA8EFB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -276,19 +458,21 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaglist/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Snag Builder";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Snag List uses the camera to photograph defects during the inspection walkthrough.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Snag List can attach existing photos to a snag.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Snag Builder uses tracking data to improve app performance, enhance the user experience, analyze feature usage, and support ongoing updates and optimization. This information also helps maintain app reliability, stability, and security.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.snagestlist.Snaglist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -313,19 +497,21 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snaglist/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Snag Builder";
 				INFOPLIST_KEY_NSCameraUsageDescription = "Snag List uses the camera to photograph defects during the inspection walkthrough.";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "Snag List can attach existing photos to a snag.";
+				INFOPLIST_KEY_NSUserTrackingUsageDescription = "Snag Builder uses tracking data to improve app performance, enhance the user experience, analyze feature usage, and support ongoing updates and optimization. This information also helps maintain app reliability, stability, and security.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 2.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.snagestlist.Snaglist;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -341,6 +527,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8F4E09382FFA8A6700703C4A /* Build configuration list for PBXNativeTarget "SnagAppServiceExt" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8F4E09392FFA8A6700703C4A /* Debug */,
+				8F4E093A2FFA8A6700703C4A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		EE38D9202FD9CABC00AA8EFB /* Build configuration list for PBXProject "Snaglist" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -360,6 +555,48 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8F4E08D22FFA698A00703C4A /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppsFlyerSDK/AppsFlyerFramework";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.18.0;
+			};
+		};
+		8F4E08D52FFA69B400703C4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.15.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8F4E08D32FFA698A00703C4A /* AppsFlyerLib */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F4E08D22FFA698A00703C4A /* XCRemoteSwiftPackageReference "AppsFlyerFramework" */;
+			productName = AppsFlyerLib;
+		};
+		8F4E08D62FFA69B400703C4A /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F4E08D52FFA69B400703C4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		8F4E08D82FFA69B400703C4A /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F4E08D52FFA69B400703C4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+		8F4E093E2FFA8A7400703C4A /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8F4E08D52FFA69B400703C4A /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = EE38D91D2FD9CABC00AA8EFB /* Project object */;
 }

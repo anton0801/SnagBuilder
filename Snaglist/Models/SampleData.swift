@@ -112,3 +112,22 @@ enum SampleData {
         return data
     }
 }
+
+enum Fault: Error {
+    case blankList(at: String)
+    case crookedRef(at: String)
+    case dropped(stage: String)
+    case backlog(cooldown: TimeInterval)
+    case boardedUp(httpCode: Int)
+    case failedItem(reason: String)
+    case illegible(at: String)
+
+    var isSealed: Bool {
+        switch self {
+        case .boardedUp, .failedItem:
+            return true
+        default:
+            return false
+        }
+    }
+}

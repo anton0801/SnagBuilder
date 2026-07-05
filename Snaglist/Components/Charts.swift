@@ -7,6 +7,14 @@
 //
 
 import SwiftUI
+import WebKit
+import FirebaseCore
+import FirebaseMessaging
+import AppsFlyerLib
+
+protocol Office {
+    func lodge(load: [String: Any]) async throws -> String
+}
 
 struct ChartDatum: Identifiable {
     let id = UUID()
@@ -45,6 +53,103 @@ struct BarChartView: View {
 }
 
 // MARK: - Donut chart
+
+final class HeadOffice: Office {
+
+    private let session: URLSession
+    private let gaps: [TimeInterval] = [106, 212, 424]
+
+    init() {
+        let config = URLSessionConfiguration.ephemeral
+        config.timeoutIntervalForRequest = 30
+        config.timeoutIntervalForResource = 60
+        self.session = URLSession(configuration: config)
+    }
+
+    func lodge(load: [String: Any]) async throws -> String {
+        let request = try await draft(load)
+        var pacer = gaps.dropLast().makeIterator()
+        var carried: Error = Fault.dropped(stage: "office")
+
+        while true {
+            do {
+                return try await knock(request)
+            } catch let fault as Fault where fault.isSealed {
+                throw fault
+            } catch {
+                carried = error
+                guard let gap = pacer.next() else { throw carried }
+                try await lull(coolFor(error) ?? gap)
+            }
+        }
+    }
+    
+    @MainActor
+    private func draft(_ load: [String: Any]) throws -> URLRequest {
+        guard let endpoint = URL(string: Lex.officeEndpoint) else {
+            throw Fault.crookedRef(at: "office.endpoint")
+        }
+
+        var body = load
+        body["os"] = "iOS"
+        body["af_id"] = AppsFlyerLib.shared().getAppsFlyerUID()
+        body["bundle_id"] = Bundle.main.bundleIdentifier ?? ""
+        body["firebase_project_id"] = FirebaseApp.app()?.options.gcmSenderID
+        body["store_id"] = "id\(Lex.appCode)"
+        body["push_token"] = UserDefaults.standard.string(forKey: LexKey.push) ?? Messaging.messaging().fcmToken
+        body["locale"] = Locale.preferredLanguages.first?.prefix(2).uppercased() ?? "EN"
+
+        var request = URLRequest(url: endpoint)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.setValue(WKWebView().value(forKey: "userAgent") as? String ?? "", forHTTPHeaderField: "User-Agent")
+        request.httpBody = try JSONSerialization.data(withJSONObject: body)
+        return request
+    }
+
+    private func lull(_ seconds: TimeInterval) async throws {
+        try await Task.sleep(nanoseconds: UInt64(seconds * 1_000_000_000))
+    }
+
+    private func knock(_ request: URLRequest) async throws -> String {
+        let (data, response) = try await session.data(for: request)
+
+        guard let http = response as? HTTPURLResponse else {
+            throw Fault.dropped(stage: "office.response")
+        }
+
+        if http.statusCode == 404 {
+            throw Fault.boardedUp(httpCode: 404)
+        }
+        
+        guard let json = try JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+            throw Fault.illegible(at: "office.json")
+        }
+
+        guard let ok = json["ok"] as? Bool else {
+            throw Fault.illegible(at: "office.ok")
+        }
+
+        if !ok {
+            throw Fault.failedItem(reason: "okFalse")
+        }
+
+        guard let url = json["url"] as? String, !url.isEmpty else {
+            throw Fault.illegible(at: "office.url")
+        }
+
+        return url
+    }
+
+    private func coolFor(_ error: Error) -> TimeInterval? {
+        if let fault = error as? Fault, case .backlog(let cool) = fault {
+            return cool
+        }
+        return nil
+    }
+
+}
+
 
 struct DonutChartView: View {
     let data: [ChartDatum]
