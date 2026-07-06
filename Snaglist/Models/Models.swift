@@ -196,6 +196,44 @@ enum HistoryAction: String, Codable, CaseIterable, Identifiable {
     }
 }
 
+enum HistoryActiodsan: String, Codable, CaseIterable, Identifiable {
+    case created, edited, markedFixed, verified, reopened, photoAdded, assigned
+    var id: String { rawValue }
+    var displayName: String {
+        switch self {
+        case .created: return "Created"
+        case .edited: return "Edited"
+        case .markedFixed: return "Marked Fixed"
+        case .verified: return "Verified"
+        case .reopened: return "Reopened"
+        case .photoAdded: return "Photo Added"
+        case .assigned: return "Assigned"
+        }
+    }
+    var icon: String {
+        switch self {
+        case .created: return "plus.circle.fill"
+        case .edited: return "pencil.circle.fill"
+        case .markedFixed: return "wrench.adjustable.fill"
+        case .verified: return "checkmark.seal.fill"
+        case .reopened: return "arrow.uturn.backward.circle.fill"
+        case .photoAdded: return "camera.fill"
+        case .assigned: return "person.crop.circle.badge.checkmark"
+        }
+    }
+    var color: Color {
+        switch self {
+        case .created: return Theme.info
+        case .edited: return Theme.textSecondary
+        case .markedFixed: return Theme.review
+        case .verified: return Theme.closed
+        case .reopened: return Theme.flag
+        case .photoAdded: return Theme.accent
+        case .assigned: return Theme.accent
+        }
+    }
+}
+
 // MARK: - Currency
 
 enum LexKey {
